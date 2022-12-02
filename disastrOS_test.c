@@ -32,6 +32,8 @@ void childFunction(void* args){
 
 void initFunction(void* args) {
   disastrOS_printStatus();
+  
+  disastrOS_fileRead();
   printf("hello, I am init and I just started\n");
   disastrOS_spawn(sleeperFunction, 0);
   
