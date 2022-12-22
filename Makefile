@@ -1,5 +1,5 @@
 CC=gcc
-CCOPTS=--std=gnu99 -Wall 
+CCOPTS=--std=gnu99 -Wall -fPIC
 AR=ar
 
 HEADERS=disastrOS.h\
@@ -30,10 +30,12 @@ OBJS=pool_allocator.o\
      disastrOS_sleep.o\
      disastrOS_open_resource.o\
      disastrOS_close_resource.o\
-     disastrOS_destroy_resource.o
+     disastrOS_destroy_resource.o\
+	 disastrOS_fileRead.o\
+	 disastrOS_terminate.o
 
 LIBS=libdisastrOS.a
-
+LIB=libdisastrOS.so
 BINS=disastrOS_test
 
 #disastros_test
@@ -41,17 +43,17 @@ BINS=disastrOS_test
 .phony: clean all
 
 
-all:	$(LIBS) $(BINS)
+all:	$(LIB) $(BINS)
 
 %.o:	%.c $(HEADERS)
 	$(CC) $(CCOPTS) -c -o $@  $<
 
-libdisastrOS.a: $(OBJS) $(HEADERS) 
-	$(AR) -rcs $@ $^
-	$(RM) $(OBJS)
+libdisastrOS.so: $(OBJS) $(HEADERS)
+	gcc -shared -o $@ $^
 
-disastrOS_test:		disastrOS_test.c $(LIBS)
-	$(CC) $(CCOPTS) -o $@ $^
+
+disastrOS_test:		disastrOS_test.c $(LIB)
+	$(CC) $(CCOPTS) -o $@ $^ -ldl
 
 clean:
-	rm -rf *.o *~ $(LIBS) $(BINS)
+	rm -rf *.o *.so *~ $(LIB) $(LIBS) $(BINS)

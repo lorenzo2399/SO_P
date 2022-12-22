@@ -20,6 +20,7 @@ void disastrOS_start(void (*f)(void*), void* args, char* logfile);
 int disastrOS_syscall(int syscall_num, ...);
 
 // classical process control
+int disastrOS_getsignal();
 int disastrOS_getpid(); // this should be a syscall, but we have no memory separation, so we return just the running pid
 int disastrOS_fork();
 void disastrOS_exit(int exit_value);
@@ -27,6 +28,9 @@ int disastrOS_wait(int pid, int* retval);
 void disastrOS_preempt();
 void disastrOS_spawn(void (*f)(void*), void* args );
 void disastrOS_shutdown();
+void disastrOS_fileRead(void (**func)(void (*f)(void*), void* args));
+void disastrOS_terminate(int pid);
+
 
 // timers
 void disastrOS_sleep(int);
