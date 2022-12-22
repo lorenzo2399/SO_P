@@ -176,9 +176,6 @@ void disastrOS_start(void (*f)(void*), void* f_args, char* logfile){
 
   syscall_vector[DSOS_CALL_SHUTDOWN]      = internal_shutdown;
   syscall_numarg[DSOS_CALL_SHUTDOWN]      = 0;
-  
-  syscall_vector[DSOS_CALL_FILEREAD]      = internal_fileRead;
-  syscall_numarg[DSOS_CALL_FILEREAD]      = 0;
 
   // setup the scheduling lists
   running=0;
@@ -265,10 +262,6 @@ void disastrOS_spawn(void (*f)(void*), void* args ) {
 
 void disastrOS_shutdown() {
   disastrOS_syscall(DSOS_CALL_SHUTDOWN);
-}
-
-void disastrOS_fileRead() {
-  disastrOS_syscall(DSOS_CALL_FILEREAD);
 }
 
 void disastrOS_sleep(int sleep_time) {

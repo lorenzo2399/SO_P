@@ -27,7 +27,6 @@ int disastrOS_wait(int pid, int* retval);
 void disastrOS_preempt();
 void disastrOS_spawn(void (*f)(void*), void* args );
 void disastrOS_shutdown();
-void disastrOS_fileRead();
 
 // timers
 void disastrOS_sleep(int);
