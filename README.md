@@ -8,7 +8,7 @@ export LD_LYBRARY_PATH=${PWD}
 ./disastrOS_test
 
 
-Il progetto richiedeva l'implementazione di una syscall che, dato un file .so al cui interno è definita una funzione, leggesse tramite dlopen un simbolo.
+Il progetto richiede l'implementazione di una syscall che, dato un file .so al cui interno è definita una funzione, legga tramite dlopen un simbolo.
 In questo caso il simbolo letto è "disastrOS_spawn" che ci fornisce un puntatore a funzione proprio alla syscall spawn.
 
 # DisastrOS_fileRead
