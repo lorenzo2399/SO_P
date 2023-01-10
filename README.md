@@ -22,6 +22,6 @@ In disastrOS_test.c viene lanciata la funzione tramite il puntatore alla syscall
 
 La seconda richiesta era l'implementazione di una syscall terminate che permettesse di terminare un thread.
 Tale funzione si trova nel file disastrOS_terminate.c. La funzione prende come argomento il pid del processo da terminare, verifica se esiste, infine manda un segnale
-al processo DSOS_SIGHTRMNT, svegliandolo se in waiting. Ricevuto il segnale, il processo effettua una exit e termina.
+al processo DSOS_SIGHTRMNT. Ricevuto il segnale, il processo effettua una exit e termina.
 
      
