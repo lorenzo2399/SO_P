@@ -18,7 +18,7 @@ void internal_schedule() {
   PCB* previous_pcb=0;
 
   //printf("SCHEDULE\n");
-  while( (elapsed_timer=TimerList_current(&timer_list, disastrOS_time)) ){
+  while( (elapsed_timer=TimerList_current(&timer_list, disastrOS_time))  ){
     PCB* pcb_to_wake=elapsed_timer->pcb;
     List_detach(&waiting_list, (ListItem*) pcb_to_wake);
     pcb_to_wake->status=Ready;
@@ -29,17 +29,7 @@ void internal_schedule() {
   }
   
   if (ready_list.first){
-    PCB* next_process=(PCB*) List_detach(&ready_list, ready_list.first);
-	ListItem* aux=ready_list.first;
-	while(aux){
-		PCB* p=(PCB*)aux;
-		if(p->signals==DSOS_SIGHTRMNT){
-			next_process=p;
-		}
-		aux=aux->next;
-		break;
-	}  
-	
+    PCB* next_process=(PCB*) List_detach(&ready_list, ready_list.first);	
     running->status=Ready;
     List_insert(&ready_list, ready_list.last, (ListItem*) running);
     next_process->status=Running;

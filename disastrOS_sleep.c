@@ -20,7 +20,7 @@ void internal_sleep(){
     printf("no new timer!!!\n");
     running->syscall_retvalue=DSOS_ESLEEP;
     return;
-  } 
+  }
   running->status=Waiting;
   List_insert(&waiting_list, waiting_list.last, (ListItem*) running);
   if (ready_list.first)

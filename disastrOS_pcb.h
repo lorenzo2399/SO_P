@@ -24,7 +24,7 @@ typedef struct PCB{
   ListHead children;
   ucontext_t cpu_state;
   // timers
-  struct TimerItem *timer;
+  struct TimerItem* timer;
 
   // descriptors (for all resources)
   int last_fd;
@@ -73,6 +73,8 @@ typedef struct PCBPtr{
   ListItem list;
   PCB* pcb;
 } PCBPtr;
+
+
 
 // allocates a list item whose data field
 // is a pointer to a PCB

@@ -16,15 +16,25 @@ void internal_terminate(){
 		vict_ptr=PCBPtr_byPID(&running->parent->children, vict_pid);
 		aux=aux->parent;
 	}
+	//pid not found
 	if(vict_ptr==0){
 		running->syscall_retvalue=DSOS_ETERMINATE;
 		return;
 	}
-	PCB* vict=vict_ptr->pcb; 
 	
+	PCB* vict=vict_ptr->pcb;
+	// if(vict->status==Waiting){
+	    // PCB* previous_pcb=0;	
+        // List_detach(&waiting_list, (ListItem*) vict);
+        // vict->status=Ready;
+        // vict->timer=0;
+        // List_insert(&ready_list, (ListItem*) previous_pcb, (ListItem*) vict);
+        // previous_pcb=vict;
+        // TimerList_removeCurrent(&timer_list);
+	 // }
 	vict->signals = DSOS_SIGHTRMNT;
-
-	 
+	
+     
 	return;
 }
 

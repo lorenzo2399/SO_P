@@ -22,16 +22,21 @@ void childFunction(void* args){
   int fd=disastrOS_openResource(disastrOS_getpid(),type,mode);
   printf("fd=%d\n", fd);
   printf("PID: %d, terminating\n", disastrOS_getpid());
-  if(disastrOS_getpid()==4){
-	  disastrOS_terminate(9);
-  }
-
   for (int i=0; i<(disastrOS_getpid()+1); ++i){
-	  if(disastrOS_getsignal()==DSOS_SIGHTRMNT) {
-		  break;
-		  }
+	if(disastrOS_getsignal()==DSOS_SIGHTRMNT) {
+		  disastrOS_exit(disastrOS_getpid()+1);
+		  }  
     printf("PID: %d, iterate %d\n", disastrOS_getpid(), i);
-    disastrOS_sleep((20-disastrOS_getpid())*5);
+    disastrOS_sleep((20-disastrOS_getpid())*2);
+	if(disastrOS_getpid()==8 && i==0){
+		printf("I'm pid 8, I will terminate pid 9\n");
+		disastrOS_terminate(9);
+	}
+	if(disastrOS_getpid()==7 && i==0){
+		printf("I'm pid 7, I will terminate pid 4\n");
+	    disastrOS_terminate(4);
+  }
+	
   }
  
   disastrOS_exit(disastrOS_getpid()+1);
@@ -57,7 +62,7 @@ void initFunction(void* args) {
     printf("opening resource (and creating if necessary)\n");
     int fd=disastrOS_openResource(i,type,mode);
     printf("fd=%d\n", fd);
-	if(i!=5){
+	if(i>3){
     disastrOS_spawn(childFunction, 0);
 	}
 	else{
@@ -71,8 +76,6 @@ void initFunction(void* args) {
   disastrOS_printStatus();
   int retval;
   int pid;
-  disastrOS_terminate(7);
-  --alive_children;
   while(alive_children>0 && (pid=disastrOS_wait(0, &retval))>=0){  
     disastrOS_printStatus();
     printf("initFunction, child: %d terminated, retval:%d, alive: %d \n",
