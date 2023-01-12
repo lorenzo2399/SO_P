@@ -34,7 +34,6 @@ OBJS=pool_allocator.o\
 	 disastrOS_fileRead.o\
 	 disastrOS_terminate.o
 
-LIBS=libdisastrOS.a
 LIB=libdisastrOS.so
 BINS=disastrOS_test
 
@@ -56,4 +55,4 @@ disastrOS_test:		disastrOS_test.c $(LIB)
 	$(CC) $(CCOPTS) -o $@ $^ -ldl
 
 clean:
-	rm -rf *.o *.so *~ $(LIB) $(LIBS) $(BINS)
+	rm -rf *.o *.so *~ $(LIB) $(BINS)
